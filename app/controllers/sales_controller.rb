@@ -1,5 +1,6 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /sales
   # GET /sales.json
@@ -10,7 +11,10 @@ class SalesController < ApplicationController
   # GET /sales/1
   # GET /sales/1.json
   def show
+    @bid = Bid.new sale: @sale
+    @bids = @sale.bids
   end
+
 
   # GET /sales/new
   def new

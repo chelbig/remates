@@ -1,5 +1,25 @@
 class BidsController < ApplicationController
   before_action :set_bid, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  #metodo para no destruir sin estar logeado
+
+
+  def create
+    #asignamos al objeto pin un registro que corresponde a pin_id que estamos evaluando, en la url
+  @sale =Sale.find(params[:sale_id])
+  #
+  @bid = Bid.new(bid_params)
+
+  #al comentario le asocio un pin especifico, el cargado en memoria, a esto le asigno el objeto @pin
+  @bid.sale = @sale
+
+  #guardo el objeto pin llamando a su metodo .save
+  @bid.save
+
+  #finbalmente se redirige al al pin con el comentario /pìn/1
+  redirect_to @sale
+
+  end
 
   # GET /bids
   # GET /bids.json
@@ -14,6 +34,7 @@ class BidsController < ApplicationController
 
   # GET /bids/new
   def new
+
     @bid = Bid.new
   end
 

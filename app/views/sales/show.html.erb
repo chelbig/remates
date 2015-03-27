@@ -20,15 +20,28 @@
   <%= @sale.start_price %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @sale.user_id %>
-</p>
-
-<p>
-  <strong>Push:</strong>
-  <%= @sale.push_id %>
-</p>
 
 <%= link_to 'Edit', edit_sale_path(@sale) %> |
 <%= link_to 'Back', sales_path %>
+
+
+
+<h2>Oferta para este remate </h2>
+<%= form_for(@sale.bids.new) do |f| %>
+ <div class="field">
+    <%= f.label :comment %><br>
+    <%= f.text_field :comment %>
+ </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+ </div>
+<% end %>
+
+
+<h2>Últimas ofertas</h2>
+
+<% @bids.each do |c| %>
+<%= c.comment %>
+<% end %>
+
